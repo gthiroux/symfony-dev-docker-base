@@ -10,7 +10,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AdType extends AbstractType
+class AdFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -19,12 +19,12 @@ class AdType extends AbstractType
             ->add('description')
             ->add('picture')
             ->add('publicated_date')
-            ->add('author', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
+                'choice_label' => 'id',
+            ])
+            ->add('user', EntityType::class, [
+                'class' => User::class,
                 'choice_label' => 'id',
             ])
         ;

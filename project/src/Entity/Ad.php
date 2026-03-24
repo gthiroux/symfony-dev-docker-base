@@ -20,10 +20,6 @@ class Ad
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'ads')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $author = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
 
@@ -33,6 +29,10 @@ class Ad
     #[ORM\ManyToOne(inversedBy: 'ads', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
+
+    #[ORM\ManyToOne(inversedBy: 'ads')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -63,17 +63,6 @@ class Ad
         return $this;
     }
 
-    public function getAuthor(): ?User
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(?User $author): static
-    {
-        $this->author = $author;
-
-        return $this;
-    }
 
     public function getPicture(): ?string
     {
@@ -107,6 +96,18 @@ class Ad
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
         return $this;
     }
 }
