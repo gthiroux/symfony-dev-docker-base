@@ -7,8 +7,10 @@ use App\Entity\Category;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class AdFormType extends AbstractType
 {
@@ -17,16 +19,22 @@ class AdFormType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('picture')
+            ->add('imageFile', VichImageType::class, [
+            'required' => false,
+            'allow_delete' => true,
+            'delete_label' => '...',
+            'asset_helper' => true,
+        ])
             ->add('publicated_date')
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'id',
             ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
+            // ->add('user', EntityType::class, [
+            //     'class' => User::class,
+            //     'choice_label' => 'id',
+            // ])
+            ->add('save',SubmitType::class)
         ;
     }
 
